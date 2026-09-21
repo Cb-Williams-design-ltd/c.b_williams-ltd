@@ -1,31 +1,5 @@
-const form=document.getElementById('contactForm');
-form.addEventListener('submit',e=>{
-  e.preventDefault();
-  const data=new FormData(form);
-  const subject=encodeURIComponent('C.B. Williams Ltd enquiry — '+data.get('service'));
-  const body=encodeURIComponent(
-`Name: ${data.get('name')}
-Email: ${data.get('email')}
-Service: ${data.get('service')}
-
-Message:
-${data.get('message')}`
-  );
-  window.location.href=`mailto:hello@cbwilliams.co.uk?subject=${subject}&body=${body}`;
-});
-const menu=document.getElementById('menuBtn');
-menu.addEventListener('click',()=>{
-  const nav=document.querySelector('.site-header nav');
-  const open=nav.dataset.open==='true';
-  nav.dataset.open=String(!open);
-  nav.style.display=open?'none':'flex';
-  nav.style.position='absolute';
-  nav.style.top='60px';
-  nav.style.left='0';
-  nav.style.right='0';
-  nav.style.padding='15px 16px';
-  nav.style.background='#071321';
-  nav.style.flexDirection='column';
-  nav.style.gap='14px';
-  nav.style.borderBottom='1px solid #20364e';
-});
+const form=document.getElementById('contactForm'),menu=document.getElementById('menuBtn'),nav=document.getElementById('siteNav');
+document.getElementById('year').textContent=new Date().getFullYear();
+form.addEventListener('submit',event=>{event.preventDefault();const data=new FormData(form);const subject=encodeURIComponent(`C.B. Williams Ltd enquiry — ${data.get('service')}`);const body=encodeURIComponent(`Name: ${data.get('name')}\nEmail: ${data.get('email')}\nService: ${data.get('service')}\n\nMessage:\n${data.get('message')}`);window.location.href=`mailto:c.b_williams.ltd@proton.me?subject=${subject}&body=${body}`});
+menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')==='true';menu.setAttribute('aria-expanded',String(!open));menu.setAttribute('aria-label',open?'Open navigation':'Close navigation');nav.dataset.open=String(!open)});
+nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open navigation');nav.dataset.open='false'}));
